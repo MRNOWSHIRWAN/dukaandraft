@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DukaanDraft - local AI post drafts for small shops</title>
+<style>
+  :root { --ink:#1c1917; --paper:#faf7f2; --accent:#c2410c; --muted:#78716c; --card:#ffffff; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; background:var(--paper); color:var(--ink); }
+  main { max-width:760px; margin:0 auto; padding:28px 16px 80px; }
+  h1 { font-size:1.6rem; margin:0 0 4px; }
+  .sub { color:var(--muted); margin:0 0 24px; }
+  label { display:block; font-size:.85rem; font-weight:600; margin:14px 0 4px; }
+  input, select, textarea { width:100%; padding:10px 12px; border:1px solid #d6d3d1; border-radius:10px; font:inherit; background:var(--card); }
+  textarea { min-height:88px; resize:vertical; }
+  .row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .channels { display:flex; gap:8px; margin:18px 0 10px; flex-wrap:wrap; }
+  .channels button { border:1px solid #d6d3d1; background:var(--card); border-radius:999px; padding:8px 14px; font:inherit; cursor:pointer; }
+  .channels button.active { background:var(--ink); color:#fff; border-color:var(--ink); }
+  .go { width:100%; margin-top:14px; padding:13px; border:0; border-radius:12px; background:var(--accent); color:#fff; font-size:1rem; font-weight:700; cursor:pointer; }
+  .go:disabled { opacity:.55; cursor:wait; }
+  #out { margin-top:26px; }
+  .card { background:var(--card); border:1px solid #e7e5e4; border-radius:14px; padding:18px; white-space:pre-wrap; line-height:1.55; }
+  .meta { color:var(--muted); font-size:.8rem; margin-top:10px; }
+  .copy { margin-top:10px; padding:8px 14px; border:1px solid #d6d3d1; border-radius:8px; background:#fff; cursor:pointer; font:inherit; }
+  .err { color:#b91c1c; margin-top:16px; }
+  footer { color:var(--muted); font-size:.8rem; margin-top:40px; border-top:1px solid #e7e5e4; padding-top:14px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>DukaanDraft</h1>
+  <p class="sub">Turn shop facts into a short English post. Open-weight AI runs on your computer, through a local Node server.</p>
+
+  <label for="shopName">Shop name</label>
+  <input maxlength="80" id="shopName" placeholder="Sharma General Store" />
+
+  <label for="offer">What are you selling or announcing? (plain words, your facts only)</label>
+  <textarea maxlength="400" id="offer" placeholder="rice for Rs 50 per kg."></textarea>
+
+  <div class="channels" id="channels">
+    <button data-ch="whatsapp" class="active">WhatsApp post</button>
+    <button data-ch="gbp">Google Business Profile</button>
+    <button data-ch="instagram">Instagram caption</button>
+  </div>
+
+  <button class="go" id="go">Write my post</button>
+  <p id="status" role="status" class="meta">Use public shop details only. The first load may take a few minutes.</p><div id="out"></div>
+
+  <footer>
+    SmolLM2-360M via Transformers.js. First use downloads model weights (hundreds of MB).
+    Drafts can be wrong: check every fact before copying. English prototype, not a translation service.
+    Model files download from Hugging Face; generation happens on your computer. No account or API key needed.
+  </footer>
+</main>
+<script src="/client.js"></script>
+</body>
+</html>
